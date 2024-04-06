@@ -1,7 +1,7 @@
-#Conjunto de test unitarios con pytest
+#Conjunto de test unitarios y de integración con pytest
 
 import pytest
-from gestion_usuarios_uni import Universidad, Estudiante, Asignatura, ProfesorTitular, ProfesorAsociado
+from gestion_usuarios_uni import Universidad, Estudiante, Asignatura, ProfesorTitular, ProfesorAsociado , Investigador, Miembro_Departamento, Departamento
 
 @pytest.fixture
 def universidad():
@@ -22,6 +22,18 @@ def profesor_asociado():
 @pytest.fixture
 def asignatura():
     return Asignatura("Matemáticas")
+
+@pytest.fixture
+def departamento():
+    return Departamento("DIIC")
+
+@pytest.fixture
+def miembro_departamento(departamento):
+    return Miembro_Departamento(departamento)
+
+@pytest.fixture
+def investigador(departamento):
+    return Investigador("Elena", "98765432D", "Calle Terciaria 789", "M", departamento, "Inteligencia Artificial")
 
 def test_nuevo_estudiante(universidad, estudiante):
     universidad.nuevo_estudiante(estudiante)
@@ -69,3 +81,22 @@ def test_eliminar_asignatura_matriculada(estudiante, asignatura):
     estudiante.eliminar_asignatura_matriculada(asignatura)
     assert asignatura not in estudiante.asignaturas_matriculadas
 
+def test_anadir_miembro_departamento(departamento, profesor_titular, miembro_departamento):
+    miembro_departamento.anadir_miembro(profesor_titular)
+    assert profesor_titular in miembro_departamento.miembros
+
+def test_eliminar_miembro_departamento(departamento, profesor_titular, miembro_departamento):
+    miembro_departamento.anadir_miembro(profesor_titular)
+    miembro_departamento.eliminar_miembro(profesor_titular)
+    assert profesor_titular not in miembro_departamento.miembros
+
+def test_cambiar_departamento(departamento, profesor_titular, miembro_departamento):
+    nuevo_departamento = Departamento("DITEC")
+    miembro_departamento.anadir_miembro(profesor_titular)
+    miembro_departamento.cambiar_departamento(nuevo_departamento, profesor_titular, nuevo_departamento)
+    assert profesor_titular not in departamento.miembros
+    assert profesor_titular in nuevo_departamento.miembros
+
+def test_convertirse_en_investigador(profesor_titular):
+    profesor_titular.convertirse_en_investigador()
+    assert profesor_titular.investigador
