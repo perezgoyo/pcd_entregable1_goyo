@@ -1,4 +1,4 @@
-# Sistema de gestión de usuarios de una Universidad
+# Sistema de Gestión de Usuarios de una Universidad
 
 class Universidad:
     # Constructor de la clase
