@@ -104,8 +104,57 @@ class ProfesorTitular(Profesor):
         super().__init__(nombre, dni, direccion, sexo, departamento) # Parámetros de la clase ProfesorTitular que hereda de Profesor, ya que todos los profesores titulares son profesores
         self.area_investigacion = area_investigacion # Parámetro que relaciona ProfesorTitular con Investigador
 
+    def convertirse_en_investigador(self):
+        self.investigador = True # Método para verificar que el profesor titular es también investigador
+
 class ProfesorAsociado(Profesor):
     def __init__(self, nombre, dni, direccion, sexo, departamento): # Parámetros de la clase ProfesorAsociado
         super().__init__(nombre, dni, direccion, sexo, departamento) # Parámetros de la clase ProfesorAsociado que hereda de Profesor, ya que todos los profesores asociados son profesores
         self.universidad = None  
 
+class Investigador(ProfesorTitular):
+    def __init__(self, nombre, dni, direccion, sexo, departamento, area_investigacion): # Parámetros de la clase Investigador 
+        super().__init__(nombre, dni, direccion, sexo, departamento, area_investigacion) # Parámetros de la clase Investigador que hereda de ProfesorTitular, ya que todos los investigadores son profesores titulares
+
+class Miembro_Departamento():
+    def __init__(self, departamento, miembros=None): #Parámetros de la clase Miembro_Departamento
+        self.departamento = departamento
+        self.miembros = miembros if miembros is not None else []
+
+    def anadir_miembro(self, nuevo_miembro):
+        if isinstance(nuevo_miembro, Persona):
+            self.miembros.append(nuevo_miembro)
+        else:
+            raise ValueError("Aquí solo se aceptan Personas") # Método que añade miembros a la lista de miembros de la clase, siempre y cuando esos miembros pertenezcan a la clase Persona, para evitar la posibilidad de que se añada por ejemplo una asignatura como miembro
+
+    def eliminar_miembro(self, nombre_miembro):
+        self.miembros.remove(nombre_miembro) # Método que elimina miembros de la lista miembros de la clase
+
+    def cambiar_departamento(self, nuevo_departamento, nombre_miembro, nuevo_departamento_objeto):
+        if nombre_miembro in self.miembros:
+            # Eliminar el miembro del departamento actual
+            self.miembros.remove(nombre_miembro)
+            # Agregar el miembro al nuevo departamento
+            if nuevo_departamento == self.departamento:
+                raise ValueError("El miembro ya pertenece a este departamento")
+            else:
+                nuevo_departamento_objeto.anadir_miembro(nombre_miembro)
+                print(f"El miembro {nombre_miembro._nombre} ha cambiado de departamento {nuevo_departamento}.")
+                return True
+        else:
+            print("El miembro no está en este departamento")
+            return False # Método que cambia el departamento del miembro, primero elimina al miembro del departamento al que pertenezca, para luego añadirlo a otro departamento, para así evitar una colisión y que en algún momento un miembro pertenezca a 2 departamentos
+
+class Departamento:
+    def __init__(self, nombre): # Parámetros de la clase Departamento
+        self.nombre = nombre
+        self.miembros = []
+
+    def anadir_miembro(self, nuevo_miembro):
+        self.miembros.append(nuevo_miembro)
+
+    def eliminar_miembro(self, nombre_miembro):
+        self.miembros.remove(nombre_miembro)
+
+    def obtener_nombre(self, nombre):
+        self.nombre = self.nombre # Método para obtener el nombre del departamento al que pertenezca un miembro
