@@ -1,3 +1,5 @@
+#Conjunto de test unitarios con pytest
+
 import pytest
 from gestion_usuarios_uni import Universidad, Estudiante, Asignatura, ProfesorTitular, ProfesorAsociado
 
@@ -57,3 +59,13 @@ def test_eliminar_asignatura(universidad, asignatura):
 def test_obtener_asignaturas_disponibles(universidad, asignatura):
     universidad.agregar_asignatura(asignatura)
     assert asignatura in universidad.obtener_asignaturas_disponibles()
+
+def test_agregar_asignatura_matriculada(estudiante, asignatura):
+    estudiante.asignaturas_matriculadas.append(asignatura)
+    assert asignatura in estudiante.asignaturas_matriculadas
+
+def test_eliminar_asignatura_matriculada(estudiante, asignatura):
+    estudiante.asignaturas_matriculadas.append(asignatura)
+    estudiante.eliminar_asignatura_matriculada(asignatura)
+    assert asignatura not in estudiante.asignaturas_matriculadas
+
