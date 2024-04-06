@@ -158,3 +158,150 @@ class Departamento:
 
     def obtener_nombre(self, nombre):
         self.nombre = self.nombre # Método para obtener el nombre del departamento al que pertenezca un miembro
+
+# Crear una universidad(instancia de la clase Universidad)
+mi_universidad = Universidad()
+
+# Crear algunas asignaturas
+asig1 = Asignatura('BDI')
+asig2 = Asignatura('BDII')
+asig3 = Asignatura('PCD')
+
+# Agregar asignaturas a la universidad
+mi_universidad.agregar_asignatura(asig1)
+mi_universidad.agregar_asignatura(asig2)
+
+# Crear estudiantes
+estudiante1 = Estudiante('Juan', '12343478A', 'Calle Abeelxo 12', 'V')
+estudiante2 = Estudiante('Pedro', '98565432B', 'Calle Cypher 14', 'V')
+
+# Asignar la universidad a los estudiantes
+estudiante1.universidad = mi_universidad
+estudiante2.universidad = mi_universidad
+
+# Matricular al estudiante de algunas de las asignaturas disponibles
+estudiante1.agregar_asignatura_matriculada(asig1)
+estudiante1.agregar_asignatura_matriculada(asig2)
+
+#Matricular al estudiante en  una asignatura no disponible(No ha sido agregada aún a mi_universidad)
+#estudiante1.agregar_asignatura_matriculada(asig3)  # Esta asignatura no está disponible
+
+# Ver las asignaturas matriculadas por el estudiante
+print("Listado de asignaturas matriculadas por el estudiante 1:", [asig.nombre for asig in estudiante1.asignaturas_matriculadas])
+
+# Crear un profesor
+profesor1 = Profesor('Pedro', '23477789C', 'Calle Bumbum 6', 'V', 'DIIC')
+
+# Asignar la universidad al profesor
+profesor1.universidad = mi_universidad
+
+# Agregar asignaturas al profesor
+profesor1.agregar_asignatura(asig1)
+profesor1.agregar_asignatura(asig2)
+
+#Matricular al profesor  en una asignatura no  disponible(No ha sido agregada aún a mi_universidad)
+#profesor1.agregar_asignatura(asig3)  # Esta asignatura no está disponible
+
+# Ver las asignaturas impartidas por el profesor
+print("Listado de asignaturas impartidas por el profesor 1:", [asig.nombre for asig in profesor1.asignaturas])
+
+# Eliminar una asignatura de la universidad
+mi_universidad.eliminar_asignatura(asig2)
+
+# Ver las asignaturas disponibles en la universidad
+print("Listado de asignaturas disponibles en la universidad:", [asig.nombre for asig in mi_universidad.obtener_asignaturas_disponibles()])
+
+# Crear un departamento
+departamento_DITEC = Departamento("Departamento DITEC")
+
+# Crear un miembro de departamento
+profesor_titular = ProfesorTitular("Carlos", "34567890D", "Calle Valentino 8", "M", departamento_DITEC, "Inteligencia Artificial")
+
+# Asignar la universidad al profesor titular
+profesor_titular.universidad = mi_universidad
+
+# Agregar el profesor titular como miembro del departamento
+departamento_DITEC.anadir_miembro(profesor_titular)
+
+# Ver los miembros del departamento de informática
+print("Miembros del Departamento DITEC:", [miembro._nombre for miembro in departamento_DITEC.miembros])
+
+# Crear un profesor asociado
+profesor_asociado = ProfesorAsociado("Paula", "32374141E", "Calle Nairobi 2", "M", departamento_DITEC)
+
+# Asignar la universidad al profesor asociado
+profesor_asociado.universidad = mi_universidad
+
+# Agregar el profesor asociado como miembro del departamento
+departamento_DITEC.anadir_miembro(profesor_asociado)
+
+# Ver los miembros del departamento de informática después de agregar el profesor asociado
+print("Miembros del Departamento DITEC:", [miembro._nombre for miembro in departamento_DITEC.miembros])
+
+# Crear una universidad
+mi_universidad = Universidad()
+
+# Crear asignaturas
+asignatura_1 = Asignatura("Computadores")
+asignatura_2 = Asignatura("Fundamentos de Redes")
+asignatura_3 = Asignatura("ML")
+
+# Agregar asignaturas a la universidad
+mi_universidad.agregar_asignatura(asignatura_1)
+mi_universidad.agregar_asignatura(asignatura_2)
+mi_universidad.agregar_asignatura(asignatura_3)
+
+# Crear un departamento
+departamento_DIS = Departamento("Departamento DIS")
+
+# Crear miembros del departamento
+profesor_titular = ProfesorTitular("Carlos", "34567890D", "Calle Principal 4", "M", departamento_DIS, "Inteligencia Artificial")
+profesor_asociado = ProfesorAsociado("Laura", "45678901E", "Calle Secundaria 5", "F", departamento_DIS)
+investigador = Investigador("Eva", "56789012F", "Calle Terciaria 6", "F", departamento_DIS, "Redes Neuronales")
+
+# Agregar miembros al departamento
+departamento_DIS.anadir_miembro(profesor_titular)
+departamento_DIS.anadir_miembro(profesor_asociado)
+departamento_DIS.anadir_miembro(investigador)
+
+# Crear estudiantes
+estudiante_1 = Estudiante("Evaristo", "12345328A", "Calle Príncipe de Asturias 22", "V")
+estudiante_2 = Estudiante("Juana", "23456879B", "Calle José Barnés 36", "M")
+
+# Asignar la universidad a los estudiantes
+estudiante_1.universidad = mi_universidad
+estudiante_2.universidad = mi_universidad
+
+# Matricular estudiantes en asignaturas
+estudiante_1.agregar_asignatura_matriculada(asignatura_1)
+estudiante_1.agregar_asignatura_matriculada(asignatura_3)
+estudiante_2.agregar_asignatura_matriculada(asignatura_2)
+
+# Crear el departamento que aún no hemos creado
+departamento_DIIC = Departamento('DIIC')
+
+# Crear miembros de departamento
+profesor_titular = ProfesorTitular('Pedro', '666554321B', 'Calle Grenheir 456', 'V', departamento_DIIC, 'Ciencias de la Computación')
+profesor_asociado = ProfesorAsociado('Ana', '736535837C', 'Calle Iván 456', 'M', departamento_DITEC)
+investigador = Investigador('Elena', '83635645D', 'Calle Aléx 789', 'M', departamento_DIS, 'Inteligencia Artificial')
+
+# Crear un miembro de departamento y agregarlo
+miembro_departamento = Miembro_Departamento(departamento_DIIC)
+miembro_departamento.anadir_miembro(profesor_titular)
+miembro_departamento.anadir_miembro(profesor_asociado)
+miembro_departamento.anadir_miembro(investigador)
+
+print("Miembros de DIIC:", [miembro._nombre for miembro in departamento_DIIC.miembros])
+
+# Cambiar a un nuevo departamento
+miembro_departamento.cambiar_departamento(departamento_DIS, profesor_asociado, departamento_DIS)
+
+print("Miembros de DIIC después del cambio:", [miembro._nombre for miembro in departamento_DIIC.miembros])
+print("Miembros de DITEC después del cambio:", [miembro._nombre for miembro in departamento_DITEC.miembros])
+print("Miembros de DIS después del cambio:", [miembro._nombre for miembro in departamento_DIS.miembros])
+
+# Intentar cambiar un miembro que no está en el departamento actual
+try:
+    miembro_departamento.cambiar_departamento(departamento_DIS, profesor_titular, departamento_DIS)
+except ValueError as e:
+    print(e)
